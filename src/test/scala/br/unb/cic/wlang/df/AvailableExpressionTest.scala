@@ -1,6 +1,6 @@
 package br.unb.cic.wlang.df
 
-import br.unb.cic.wlang.df.framework.{ AvailableExpression => MFPAE }
+import br.unb.cic.wlang.df.framework.{ AvailableExpression => MFPAE, AvailableExpressionRep => MFPAERep }
 import br.unb.cic.wlang._
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -69,5 +69,30 @@ class AvailableExpressionTest extends AnyFunSuite {
 
   }
 
+  test("Test case for the MFP Reimplementation of Available Expressions") {
+
+    val mfp = new MFPAERep(p)
+
+    val (mfp1, mfp2) = mfp.execute()
+
+    assert(mfp1 != null)
+    assert(mfp2 != null)
+
+    assert(mfp1(1) == Set.empty)
+    assert(mfp2(1) == Set(Add(Variable("a"), Variable("b"))))
+
+    assert(mfp1(2) == Set(Add(Variable("a"), Variable("b"))))
+    assert(mfp2(2) == Set(Add(Variable("a"), Variable("b")), Mult(Variable("a"), Variable("b"))))
+
+    assert(mfp1(3) == Set(Add(Variable("a"), Variable("b"))))
+    assert(mfp2(3) == Set(Add(Variable("a"), Variable("b"))))
+
+    assert(mfp1(4) == Set(Add(Variable("a"), Variable("b"))))
+    assert(mfp2(4) == Set.empty)
+
+    assert(mfp1(5) == Set.empty)
+    assert(mfp2(5) == Set(Add(Variable("a"), Variable("b"))))
+
+  }
 
 }
