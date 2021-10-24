@@ -79,4 +79,23 @@ class CFGBuilderTest extends AnyFunSuite {
     println(exportDot(g))
   }
 
+  test("Test for inter-flow fibonacci CFG") {
+    val program = WhileProgram(List(
+      Procedure("fib", List(FormalArgument("z",ByValue), FormalArgument("u",ByValue), FormalArgument("v",ByResult)),1,
+        IfThenElse(Condition(LT(Variable("z"),Const(3)),2),
+          Assignment("v",Add(Variable("u"),Const(1)),3),
+          Sequence(Call("fib",List(Sub(Variable("z"),Const(1)), Variable("u"), Variable("v")),4,5),
+                   Call("fib",List(Sub(Variable("z"),Const(2)), Variable("v"), Variable("v")),6,7))),8)),
+      Call("fib",List(Const(10), Const(0), Variable("y")),9,10)
+    )
+
+    val g = CFGBuilder.interFlow(program)
+
+    val expected = Set(
+      (9, 1, 8,10), (4,1, 8,5), (6,1, 8,7)
+    )
+
+    assert(g == expected)
+  }
+
 }
