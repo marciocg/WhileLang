@@ -3,7 +3,7 @@ package br.unb.cic.wlang.cfg
 import br.unb.cic.wlang.cfg.PathBuilder._
 import org.scalatest.funsuite.AnyFunSuite
 import br.unb.cic.wlang.cfg.CFGBuilder._
-
+import br.unb.cic.wlang.WhileProgram._
 
 class PathBuilderTest extends AnyFunSuite {
 
@@ -51,6 +51,22 @@ class PathBuilderTest extends AnyFunSuite {
   test("Test new") {
     val expected : Set[Path] = Set(List(2, 1, 3), List(2, 0, 1, 3), List(2, 0, 3))
     assert(expected == path(2, 3, flow2))
+  }
+
+
+  val flow3: CFG = Set(
+      (1,2), (2,3), (3,8),
+      (2,4), (4,1), (8,5), (5,6), (6,1), (8,7), (7,8),
+      (9, 1), (8,10)
+    )
+
+  val interFlow3: InterCFG =  Set(
+      (9, 1, 8,10), (4,1, 8,5), (6,1, 8,7)
+    )
+
+  test("test complete path") {
+    val expected : Set[Path] = Set(List(9,1,2,4,1,2,3,8,5,6,1,2,3,8,7,8,10))
+    assert(expected == completePath(9, 10, flow3, interFlow3))
   }
 
 }
