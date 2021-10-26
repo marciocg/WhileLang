@@ -66,7 +66,7 @@ class PathBuilderTest extends AnyFunSuite {
 
   test("test complete path") {
     val expected : Set[Path] = Set(List(9,1,2,4,1,2,3,8,5,6,1,2,3,8,7,8,10))
-    assert(expected == completePath(9, 10, flow3, interFlow3))
+    assert(expected == completePath(9, 10, flow3, interFlow3, List(), List()))
   }
 
 }
