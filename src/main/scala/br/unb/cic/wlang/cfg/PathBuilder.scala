@@ -52,7 +52,7 @@ object PathBuilder {
     // check if it is case2 ou case 3 
     var res: Set[Path] = Set(List(l1))
     if(case3==1){
-        res = res ++ completePath(ln , lx , flow , interFlow, newVisiting, newFinished).map(path => l1 :: path) ++ completePath(lr , l2 , flow , interFlow, newVisiting, newFinished).map(path => l1 :: path)
+        res = res ++ completePath(ln , lx , flow , interFlow, visiting, finished).map(path => l1 :: path) ++ completePath(lr , l2 , flow , interFlow, newVisiting, newFinished).map(path => l1 :: path)
      }else{
       for((n, t) <- flow if (n == l1) && !newFinished.contains(t)) {
         res = res++ completePath(t , l2 , flow , interFlow, newVisiting, newFinished).map(path => l1 :: path)
