@@ -49,36 +49,18 @@ object PathBuilder {
         else return completePath(path.tail, flow, interFlow, stack)
       }
     }
-
-/*   def completePathsErrado(l1: Label, l2: Label, path: Path, interflow: InterCFG): Path = {
-    var res: Path = if (l1 == l2) List(l1) else List()
-    var tem_lcln : Boolean = false
-    var tem_lxlr : Boolean = false
-
-
-      for ((lc, ln, lx, lr) <- interflow) {
-        //println(s"$lc : $path.contains(lc) $ln : $path.contains(ln), $lx : $path.contains(lx), $lr : $path.contains(lc), path")
-       // printf(s"$lc  $ln  $lx  $lr")
-        // if (path.contains(lc)) printf("- tem lc ")
-        // if (path.contains(ln)) printf("- tem ln ")
-        // if (path.contains(lx)) printf("- tem lx ")
-        // if (path.contains(lr)) printf("- tem lr \n")
-        if (path.contains(lc)) {
-          if (path.indexOf(ln) == (path.indexOf(lc)+1)) tem_lcln = true
-        }
-
-        if (path.contains(lx)) {
-          if (path.indexOf(lr) == (path.indexOf(lx)+1)) tem_lxlr = true
-        }
-
-        if (tem_lxlr && tem_lcln) {
-           //res = res ++ Set(path)
-           res = res ::: List(lc) ::: completePaths(ln, lx, path, interflow) ::: completePaths(lr, l2, path, interflow)
-           //println(res)        
-        } else { res = List(l1) ::: completePaths(path.indexOf(l1)+1, l2, path, interflow)}
-      }
-    
-    res
+  
+  def validPath(l1: Label, l2: Label, paths: Set[Path], flow: CFG, interFlow: InterCFG, stack: mutable.Stack[Label]): Boolean = {
+     var res: Set[Path] = paths
+     for (path <- paths) {
+       val cp = completePath(path, flow, interFlow)
+       if (!cp) res = res -- Set(path)
+      
+     }
+     //if (res.contains(path(l1, l2, flow))) true
+     if ((path(l1, l2, flow).subsetOf(res))) true
+     else false
+      
   }
- */
+
 }
