@@ -119,8 +119,10 @@ class PathBuilderTest extends AnyFunSuite {
 
     val expected1 = List(9, 1, 2, 4, 1, 2, 3, 8, 5, 6, 1, 2, 3, 8, 7, 8, 10)
     val expected2 = List(9, 1, 2, 4, 1, 2, 3, 8, 10)
+    val expected3 = List(9, 1, 2, 3, 8, 10)
     assert(completePath(expected1,cfgFlow, interFlow))
     assert(!completePath(expected2,cfgFlow, interFlow))
+    assert(completePath(expected3,cfgFlow, interFlow))
     // val paths = path(9, 10, flow3)
     // for (p <- paths) {
     // completePaths(9, 10, p, interflow3)

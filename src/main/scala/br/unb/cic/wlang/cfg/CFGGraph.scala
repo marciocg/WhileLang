@@ -5,7 +5,7 @@ import scalax.collection.Graph.{newBuilder} // or scalax.collection.mutable.Grap
 import scalax.collection.GraphPredef._
 import scalax.collection.GraphEdge._
 import scalax.collection.GraphTraversal._
-// import scalax.collection.io.dot_
+import scalax.collection.io.dot._
 
 import br.unb.cic.wlang.cfg.CFGBuilder._
 
@@ -27,7 +27,7 @@ object CFGGraph {
       (9, 1),
       (8, 10)
     )
-    println(flow3.toList)
+    println("flow3 : " + flow3.toList)
     //println(flow3.toList.map[List[Graph]]((a,b)=>DiEdge(a,b)))
     //val grafo: DiHyperEdge = 1~>2~>2~>3
     val grafoHyper = DiHyperEdge(1, 2, 2, 3)
@@ -39,5 +39,6 @@ object CFGGraph {
     println("nodes  : " + grafo.nodes.toString())
     println("edges  : " + grafo.nodes.toString())
 
+    // val dotgrafo = grafo.toDot(dotRoot, edgeTransformer)
   }
 }
