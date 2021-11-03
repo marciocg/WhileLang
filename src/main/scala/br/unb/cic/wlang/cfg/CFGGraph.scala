@@ -6,10 +6,55 @@ import scalax.collection.GraphPredef._
 import scalax.collection.GraphEdge._
 import scalax.collection.GraphTraversal._
 import scalax.collection.io.dot._
+import scala.collection.mutable.ArrayBuffer
 
 import br.unb.cic.wlang.cfg.CFGBuilder._
+import java.util.ArrayList
 
-class CFGGraph {}
+class CFGGraph (var vertices: Int) {
+
+  var adjList = ArrayBuffer[List[Int]](List())
+  var isVisited = ArrayBuffer[Boolean]()
+
+  initArrays()
+
+  def initArrays(): Unit = {
+    var n = 0
+    while (n < vertices) {
+      adjList += List()
+      isVisited += false
+      n += 1
+    }
+  }
+
+  def addEdge(u: Int, v: Int): Unit = {
+    adjList(u) :+ v
+  }
+
+  def printAllPaths(from: Int, to: Int): Unit = {
+    var pathList = ArrayBuffer[List[Int]](List())
+    pathList :+ from
+
+    printAllPathsUtil(from, to, pathList)
+
+  }
+
+  def printAllPathsUtil(u: Int, d: Int, localPathList: ArrayBuffer[List[Int]]): Unit = {
+    if (u == d) println(localPathList)
+    else {
+      isVisited(u) = true
+
+      for (v <- adjList(u)) {
+        if (!isVisited(u)) { ???
+          //localPathList(u).insert(v)
+
+
+        }
+      }
+    }
+  }
+
+}
 
 object CFGGraph {
   def main(args: Array[String]) = {
@@ -38,6 +83,10 @@ object CFGGraph {
     println("string : " + grafo.toString())
     println("nodes  : " + grafo.nodes.toString())
     println("edges  : " + grafo.nodes.toString())
+
+    val sa = Set(1,2,3)
+    val sb = Set(1,2,3)
+    println(sa.subsetOf(sb))
 
     // val dotgrafo = grafo.toDot(dotRoot, edgeTransformer)
   }
